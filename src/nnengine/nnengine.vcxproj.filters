@@ -61,5 +61,8 @@
     <ClInclude Include="NNRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="NNLibSet.h">
+      <Filter>Macro</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

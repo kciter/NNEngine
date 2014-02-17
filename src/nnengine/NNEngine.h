@@ -11,6 +11,8 @@
 #ifndef __NNENGINE_H__
 #define __NNENGINE_H__
 
-
+#include "NNLibSet.h"
+#include "NNRenderer.h"
+#include "NNWindowsApplication.h"
 
 #endif

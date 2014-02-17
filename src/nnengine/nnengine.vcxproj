@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClInclude Include="NNBaseApplication.h" />
     <ClInclude Include="NNEngine.h" />
+    <ClInclude Include="NNLibSet.h" />
     <ClInclude Include="NNRenderer.h" />
     <ClInclude Include="NNWindowsApplication.h" />
   </ItemGroup>

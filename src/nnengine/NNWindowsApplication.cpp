@@ -1,4 +1,13 @@
 
+/*
+ * NNWindowsApplication.cpp
+ * 작성자: 이선협
+ * 작성일: 2014. 02. 18
+ * 마지막으로 수정한 사람:
+ * 수정일:
+ * 윈도우에서 Application Frame을 생성하기 위한 클래스
+ */
+
 #include "NNWindowsApplication.h"
 
 namespace NNEngine
@@ -46,7 +55,7 @@ namespace NNEngine
 	}
 	bool NNWindowsApplication::Release()
 	{
-
+		return true;
 	}
 	bool NNWindowsApplication::Run()
 	{
@@ -96,10 +105,58 @@ namespace NNEngine
 
 	bool NNWindowsApplication::_CreateWindow( wchar_t* title, int width, int height )
 	{
+		WNDCLASSEX wcex;
+		wcex.cbSize = sizeof(WNDCLASSEX);
+		wcex.style = CS_HREDRAW | CS_VREDRAW;
+		wcex.lpfnWndProc = _WndProc;
+		wcex.cbClsExtra = NULL;
+		wcex.cbWndExtra = NULL;
+		wcex.hInstance = mhInstance;
+		wcex.hIcon = NULL;
+		wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+		wcex.lpszMenuName = NULL;
+		wcex.lpszClassName = L"NNApplication";
+		wcex.hIconSm = NULL;
+		wcex.hIcon = NULL;
 
+		RegisterClassEx( &wcex );
+
+		DWORD style = WS_OVERLAPPEDWINDOW;
+
+		RECT wr = {0, 0, width, height};
+		AdjustWindowRect( &wr, WS_OVERLAPPEDWINDOW, FALSE );
+
+		mHwnd = CreateWindow( L"NNApplication", title, style, CW_USEDEFAULT, CW_USEDEFAULT,
+			wr.right-wr.left, wr.bottom-wr.top, NULL, NULL, mhInstance, NULL);
+
+		ShowWindow( mHwnd, SW_SHOWNORMAL );
+
+		return true;
 	}
+
 	LRESULT CALLBACK NNWindowsApplication::_WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam )
 	{
+		switch( message )
+		{
+		case WM_CREATE:
+			{
+				return 0;
+			}
+		case WM_DESTROY:
+			{
+				PostQuitMessage(0);
+				return 0;
+			}
+		case WM_PAINT:
+			{
+				PAINTSTRUCT ps;
+				HDC hdc = BeginPaint( hWnd, &ps );
+				EndPaint( hWnd, &ps );
+				return 0;
+			}
+		}
 
+		return(DefWindowProc(hWnd,message,wParam,lParam));
 	}
 }
