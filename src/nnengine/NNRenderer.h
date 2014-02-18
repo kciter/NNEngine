@@ -19,6 +19,21 @@ namespace NNEngine
 		D3D,
 		OPENGL,
 	};
+
+	class NNRenderer
+	{
+	public:
+		NNRenderer();
+		virtual ~NNRenderer();
+
+	public:
+		virtual bool Init() = 0;
+		virtual bool Release() = 0;
+
+		virtual bool DrawBegin() = 0;
+		virtual bool DrawEnd() = 0;
+		virtual bool Clear() = 0;
+	};
 }
 
 #endif
