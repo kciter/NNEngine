@@ -85,11 +85,13 @@
     <ClInclude Include="NND3DRenderer.h" />
     <ClInclude Include="NNEngine.h" />
     <ClInclude Include="NNLibSet.h" />
+    <ClInclude Include="NNOpenGLRenderer.h" />
     <ClInclude Include="NNRenderer.h" />
     <ClInclude Include="NNWindowsApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NND3DRenderer.cpp" />
+    <ClCompile Include="NNOpenGLRenderer.cpp" />
     <ClCompile Include="NNWindowsApplication.cpp" />
     <ClCompile Include="TempMain.cpp" />
   </ItemGroup>
