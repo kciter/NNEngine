@@ -40,9 +40,11 @@ namespace NNEngine
 		 * title: 어플리케이션의 타이틀명
 		 * width: 어플리케이션 프레임의 가로길이
 		 * height: 어플리케이션 프레임의 세로길이
+		 * isFullscreen: 풀스크린 여부
+		 * rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
 		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
 		 */
-		bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus );
+		bool Init( wchar_t* title, int width, int height, bool isFullscreen, RendererStatus rendererStatus );
 
 		/* Release
 		 * Return Type: bool
@@ -84,7 +86,7 @@ namespace NNEngine
 		 * rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
 		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
 		 */
-		bool _CreateRenderer( RendererStatus rendererStatus );
+		bool _CreateRenderer( bool isFullscreen, RendererStatus rendererStatus );
 
 		/* _WndProc
 		 * 윈도우 메세지 큐 처리 콜백 함수
@@ -101,6 +103,8 @@ namespace NNEngine
 
 		HWND mHwnd;
 		HINSTANCE mhInstance;
+
+		friend class NND3DRenderer;
 	};
 }
 

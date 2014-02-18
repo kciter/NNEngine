@@ -41,11 +41,12 @@ namespace NNEngine
 	{
 	}
 
-	bool NNWindowsApplication::Init( wchar_t* title, int width, int height, RendererStatus rendererStatus )
+	bool NNWindowsApplication::Init( wchar_t* title, int width, int height, bool isFullscreen, RendererStatus rendererStatus )
 	{
 		mTitle = title;
 		mScreenWidth = width;
 		mScreenHeight = height;
+		mIsFullscreen = isFullscreen;
 		mRendererStatus = rendererStatus;
 
 		if ( _CreateWindow( title, width, height ) == false )
@@ -53,7 +54,7 @@ namespace NNEngine
 			return false;
 		}
 
-		if ( _CreateRenderer( rendererStatus ) == false )
+		if ( _CreateRenderer( isFullscreen, rendererStatus ) == false )
 		{
 			return false;
 		}
@@ -103,6 +104,10 @@ namespace NNEngine
 				}
 				mPrevTime = mNowTime;
 
+				if ( GetKeyState(VK_RETURN) & 0x8000 ) {
+					mRenderer->ToggleFullscreen();
+				}
+
 				/* Render */
 				mRenderer->Clear();
 				mRenderer->DrawBegin();
@@ -133,10 +138,10 @@ namespace NNEngine
 
 		RegisterClassEx( &wcex );
 
-		DWORD style = WS_OVERLAPPEDWINDOW;
+		DWORD style = WS_OVERLAPPEDWINDOW; // Fullscreen일때는 WS_POPUP으로 하던데 그 이유는?
 
 		RECT wr = {0, 0, width, height};
-		AdjustWindowRect( &wr, WS_OVERLAPPEDWINDOW, FALSE );
+		AdjustWindowRect( &wr, style, FALSE );
 
 		mHwnd = CreateWindow( L"NNApplication", title, style, CW_USEDEFAULT, CW_USEDEFAULT,
 			wr.right-wr.left, wr.bottom-wr.top, NULL, NULL, mhInstance, NULL);
@@ -146,7 +151,7 @@ namespace NNEngine
 		return true;
 	}
 
-	bool NNWindowsApplication::_CreateRenderer( RendererStatus rendererStatus )
+	bool NNWindowsApplication::_CreateRenderer( bool isFullscreen, RendererStatus rendererStatus )
 	{
 		switch( rendererStatus )
 		{
