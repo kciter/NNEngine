@@ -6,6 +6,9 @@
  * 마지막으로 수정한 사람:
  * 수정일:
  * 윈도우에서 Application Frame을 생성하기 위한 클래스
+ * 엔진에서 기본적으로 제공해주는 Application 클래스
+ * 이 클래스를 사용하지 않고 BaseApplication을 상속받아
+ * 직접 만들어서 사용하여도 상관없다.
  */
 
 #ifndef __NNWINDOWSAPPLICATION_H__
@@ -19,16 +22,43 @@ namespace NNEngine
 	class NNWindowsApplication : public NNBaseApplication
 	{
 	public:
+		/* GetInstance
+		 * Return Type: NNWindowsApplication
+		 * 싱글톤 인스턴스를 반환하는 함수
+		 */
 		static NNWindowsApplication* GetInstance();
+
+		/* ReleaseInstance
+		 * Return Type: void
+		 * 싱글톤 인스턴스 삭제하는 함수
+		 */
 		static void ReleaseInstance();
 
 	public:
+		/* Init
+		 * Return Type: bool
+		 * title: 어플리케이션의 타이틀명
+		 * width: 어플리케이션 프레임의 가로길이
+		 * height: 어플리케이션 프레임의 세로길이
+		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
+		 */
 		virtual bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus );
+
+		/* Release
+		 * Return Type: bool
+		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
+		 */
 		virtual bool Release();
+
+		/* Run
+		 * Return Type: bool
+		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
+		 */
 		virtual bool Run();
 
 	private:
 		/* _CreateWindow
+		 * Return Type: bool
 		 * title: 어플리케이션의 타이틀명
 		 * width: 어플리케이션 프레임의 가로길이
 		 * height: 어플리케이션 프레임의 세로길이
