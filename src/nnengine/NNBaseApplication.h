@@ -20,8 +20,10 @@ namespace NNEngine
 	{
 	public:
 		/* 생성자와 소멸자 */
-		NNBaseApplication();
-		virtual ~NNBaseApplication();
+		NNBaseApplication() : mTitle(nullptr), mScreenWidth(0), mScreenHeight(0),
+			mFps(0.f), mElapsedTime(0.f), mDeltaTime(0),
+			mRenderer(nullptr) {} // mRendererStatus를 초기화안함
+		virtual ~NNBaseApplication() {}
 
 	public:
 		/* Init 
@@ -33,7 +35,7 @@ namespace NNEngine
 		 * 어플리케이션을 초기화하는 함수. 프레임창을 생성함
 		 * 성공하면 true를 반환한다.
 		 */
-		virtual bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus );
+		virtual bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus ) = 0;
 
 		/* Release
 		 * Return Type: bool
@@ -41,14 +43,14 @@ namespace NNEngine
 		 * 메모리를 전부 delete함
 		 * 성공하면 true를 반환한다.
 		 */
-		virtual bool Release();
+		virtual bool Release() = 0;
 
 		/* Release
 		 * Return Type: bool
 		 * 메세지 루프를 실행한다.
 		 * 성공하면 true를 반환한다.
 		 */
-		virtual bool Run();
+		virtual bool Run() = 0;
 
 	public:
 		/* GetTitle
@@ -104,7 +106,7 @@ namespace NNEngine
 		* rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
 		* 렌더러를 생성하는 함수.
 		*/
-		bool _CreateRenderer( RendererStatus rendererStatus );
+		virtual bool _CreateRenderer( RendererStatus rendererStatus ) = 0;
 
 	protected:
 		wchar_t* mTitle;
