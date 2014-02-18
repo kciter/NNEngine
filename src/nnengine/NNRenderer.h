@@ -23,8 +23,8 @@ namespace NNEngine
 	class NNRenderer
 	{
 	public:
-		NNRenderer();
-		virtual ~NNRenderer();
+		NNRenderer(){}
+		virtual ~NNRenderer(){}
 
 	public:
 		virtual bool Init() = 0;
