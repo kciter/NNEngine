@@ -39,15 +39,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NNBaseApplication.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
     <ClCompile Include="TempMain.cpp" />
     <ClCompile Include="NNWindowsApplication.cpp">
       <Filter>Application\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="NNRenderer.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="NND3DRenderer.cpp">
+      <Filter>Renderer\D3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +60,9 @@
     </ClInclude>
     <ClInclude Include="NNLibSet.h">
       <Filter>Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NND3DRenderer.h">
+      <Filter>Renderer\D3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
