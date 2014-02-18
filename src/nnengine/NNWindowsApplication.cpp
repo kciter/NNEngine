@@ -10,6 +10,8 @@
 
 #include "NNWindowsApplication.h"
 
+#include "NND3DRenderer.h"
+
 namespace NNEngine
 {
 	NNWindowsApplication* NNWindowsApplication::mInstance = nullptr;
@@ -41,12 +43,17 @@ namespace NNEngine
 
 	bool NNWindowsApplication::Init( wchar_t* title, int width, int height, RendererStatus rendererStatus )
 	{
-		if ( __super::Init( title, width, height, rendererStatus ) == false )
+		mTitle = title;
+		mScreenWidth = width;
+		mScreenHeight = height;
+		mRendererStatus = rendererStatus;
+
+		if ( _CreateWindow( title, width, height ) == false )
 		{
 			return false;
 		}
 
-		if ( _CreateWindow( title, width, height ) == false )
+		if ( _CreateRenderer( rendererStatus ) == false )
 		{
 			return false;
 		}
@@ -80,7 +87,7 @@ namespace NNEngine
 			}
 			else{
 				mFrameCount++;
-				mNowTime = timeGetTime();
+				mNowTime = timeGetTime(); // Linux, Mac에서는 안돌아감
 				if ( mPrevTime == 0.f )
 				{
 					mPrevTime = mNowTime;
@@ -97,6 +104,10 @@ namespace NNEngine
 				mPrevTime = mNowTime;
 
 				/* Render */
+				mRenderer->Clear();
+				mRenderer->DrawBegin();
+				/* Scene */
+				mRenderer->DrawEnd();
 			}
 		}
 
@@ -131,6 +142,25 @@ namespace NNEngine
 			wr.right-wr.left, wr.bottom-wr.top, NULL, NULL, mhInstance, NULL);
 
 		ShowWindow( mHwnd, SW_SHOWNORMAL );
+
+		return true;
+	}
+
+	bool NNWindowsApplication::_CreateRenderer( RendererStatus rendererStatus )
+	{
+		switch( rendererStatus )
+		{
+		case D3D:
+			{
+				mRenderer = new NND3DRenderer();
+				break;
+			}
+		default:
+			return false;
+		}
+
+		if ( mRenderer->Init() == false )
+			return false;
 
 		return true;
 	}

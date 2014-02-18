@@ -42,19 +42,32 @@ namespace NNEngine
 		 * height: 어플리케이션 프레임의 세로길이
 		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
 		 */
-		virtual bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus );
+		bool Init( wchar_t* title, int width, int height, RendererStatus rendererStatus );
 
 		/* Release
 		 * Return Type: bool
 		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
 		 */
-		virtual bool Release();
+		bool Release();
 
 		/* Run
 		 * Return Type: bool
 		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
 		 */
-		virtual bool Run();
+		bool Run();
+
+	public:
+		/* GetHWND
+		 * Return Type: HWND
+		 * HWND를 반환하는 함수
+		 */
+		inline HWND GetHWND() const { return mHwnd; }
+
+		/* GetHandleInstance
+		 * Return Type: HINSTANCE
+		 * 인스턴스 핸들을 반환하는 함수
+		 */
+		inline HINSTANCE GetHandleInstance() const { return mhInstance; }
 
 	private:
 		/* _CreateWindow
@@ -65,6 +78,13 @@ namespace NNEngine
 		 * 어플리케이션 프레임을 생성하는 함수.
 		 */
 		bool _CreateWindow( wchar_t* title, int width, int height );
+
+		/* _CreateRenderer
+		 * Return Type: bool
+		 * rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
+		 * NNBaseApplication에서 상속받은 함수를 오버라이딩함
+		 */
+		bool _CreateRenderer( RendererStatus rendererStatus );
 
 		/* _WndProc
 		 * 윈도우 메세지 큐 처리 콜백 함수
