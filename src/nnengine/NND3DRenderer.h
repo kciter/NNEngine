@@ -56,6 +56,12 @@ namespace NNEngine
 		 */
 		bool Clear();
 
+		/* ToggleFullscreen
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
+		bool ToggleFullscreen();
+
 	public:
 		/* GetD3D
 		 * Return Type: LPDIRECT3DP

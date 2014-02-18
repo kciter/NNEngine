@@ -59,7 +59,6 @@ namespace NNEngine
 		default: mst = D3DMULTISAMPLE_NONE;break;
 		}
 		*/
-		d3dPresentParameters.Windowed = true;
 		d3dPresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dPresentParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 		d3dPresentParameters.BackBufferWidth = NNWindowsApplication::GetInstance()->GetScreenWidth();
@@ -67,21 +66,22 @@ namespace NNEngine
 		d3dPresentParameters.BackBufferFormat = D3DFMT_A8R8G8B8;
 		d3dPresentParameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;// D3DPRESENT_INTERVAL_IMMEDIATE;
 		d3dPresentParameters.hDeviceWindow = NNWindowsApplication::GetInstance()->GetHWND();
+		d3dPresentParameters.Windowed = !NNWindowsApplication::GetInstance()->IsFullscreen();
 
 		hr = mD3D->CheckDeviceMultiSampleType( D3DADAPTER_DEFAULT,
-			D3DDEVTYPE_HAL, d3dPresentParameters.BackBufferFormat, true, mst, NULL );
+			D3DDEVTYPE_HAL, d3dPresentParameters.BackBufferFormat, !NNWindowsApplication::GetInstance()->IsFullscreen(), mst, NULL );
 
-		if( SUCCEEDED(hr) ) d3dPresentParameters.MultiSampleType = mst;
-		else return false;
+		if( SUCCEEDED(hr) ) { d3dPresentParameters.MultiSampleType = mst; }
+		else { return false; }
 
 		hr = mD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, NNWindowsApplication::GetInstance()->GetHWND(),
 			D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dPresentParameters, &mD3DDevice ); //D3DCREATE_SOFTWARE_VERTEXPROCESSING
 
-		if( FAILED(hr) ) return false;
+		if( FAILED(hr) ) { return false; }
 
 		hr = D3DXCreateSprite( mD3DDevice, &mSprite );
 
-		if( FAILED(hr) ) return false;
+		if( FAILED(hr) ) { return false; }
 
 		return true;
 	}
@@ -94,47 +94,81 @@ namespace NNEngine
 
 	bool NND3DRenderer::DrawBegin()
 	{
-		HRESULT hr = 0;
-
 		if ( mD3DDevice == nullptr )
 			return false;
 
-		if( FAILED(hr) )
-			return false;
-
-		hr = mD3DDevice->BeginScene();
-		if( FAILED(hr) )
+		if( FAILED(mD3DDevice->BeginScene()) )
 			return false;
 
 		return true;
 	}
 	bool NND3DRenderer::DrawEnd()
 	{
-		HRESULT hr = 0;
-
 		if ( mD3DDevice == nullptr )
 			return false;
 
-		hr = mD3DDevice->EndScene();
-		if( FAILED(hr) )
+		if( FAILED(mD3DDevice->EndScene()) )
 			return false;
 
-		hr = mD3DDevice->Present( NULL, NULL, NULL, NULL );
-		if( FAILED(hr) )
+		if( FAILED(mD3DDevice->Present( NULL, NULL, NULL, NULL )) )
 			return false;
 
 		return true;
 	}
 	bool NND3DRenderer::Clear()
 	{
-		HRESULT hr = 0;
+		if ( mD3DDevice == nullptr )
+			return false;
+
+		if( FAILED(mD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(255,0,0,0), 1.0f, 0 )) )
+			return false;
+
+		return true;
+	}
+	bool NND3DRenderer::ToggleFullscreen()
+	{
+		D3DPRESENT_PARAMETERS d3dPresentParameters;
+
+		ZeroMemory( &d3dPresentParameters, sizeof(d3dPresentParameters) );
+
+		d3dPresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		d3dPresentParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+		d3dPresentParameters.BackBufferWidth = NNWindowsApplication::GetInstance()->GetScreenWidth();
+		d3dPresentParameters.BackBufferHeight = NNWindowsApplication::GetInstance()->GetScreenHeight();
+		d3dPresentParameters.BackBufferFormat = D3DFMT_A8R8G8B8;
+		d3dPresentParameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;// D3DPRESENT_INTERVAL_IMMEDIATE;
+		d3dPresentParameters.hDeviceWindow = NNWindowsApplication::GetInstance()->GetHWND();
 
 		if ( mD3DDevice == nullptr )
 			return false;
 
-		hr = mD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(255,0,0,0), 1.0f, 0 );
-		if( FAILED(hr) )
-			return false;
+		if ( NNWindowsApplication::GetInstance()->IsFullscreen() == false )
+		{
+			d3dPresentParameters.Windowed = false;
+
+			SetWindowLong( NNWindowsApplication::GetInstance()->GetHWND(), GWL_STYLE, WS_POPUPWINDOW );
+			SetWindowPos( NNWindowsApplication::GetInstance()->GetHWND(), HWND_TOP, 0, 0, 0, 0,
+				SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
+
+			if ( FAILED(mD3DDevice->Reset(&d3dPresentParameters)) )
+				return false;
+
+			NNWindowsApplication::GetInstance()->mIsFullscreen = true;
+		}
+		else
+		{
+			d3dPresentParameters.Windowed = true;
+
+			SetWindowLong( NNWindowsApplication::GetInstance()->GetHWND(), GWL_STYLE, WS_OVERLAPPEDWINDOW );
+			SetWindowPos( NNWindowsApplication::GetInstance()->GetHWND(), HWND_TOP, 0, 0, 
+				NNWindowsApplication::GetInstance()->GetScreenWidth(), NNWindowsApplication::GetInstance()->GetScreenHeight(), 
+				SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
+
+			if ( FAILED(mD3DDevice->Reset(&d3dPresentParameters)) )
+				return false;
+
+			NNWindowsApplication::GetInstance()->mIsFullscreen = false;
+		}
 
 		return true;
 	}
