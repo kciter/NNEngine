@@ -21,20 +21,58 @@ namespace NNEngine
 	class NND3DRenderer : public NNRenderer
 	{
 	public:
+		/* 생성자와 소멸자 */
 		NND3DRenderer();
 		virtual ~NND3DRenderer();
 
 	public:
+		/* Init
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
 		bool Init();
+
+		/* Release
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
 		bool Release();
 
+		/* DrawBegin
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
 		bool DrawBegin();
+
+		/* DrawEnd
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
 		bool DrawEnd();
+
+		/* Clear
+		 * Return Type: bool
+		 * NNRenderer에서 상속받아 오버라이딩
+		 */
 		bool Clear();
 
 	public:
+		/* GetD3D
+		 * Return Type: LPDIRECT3DP
+		 * D3D 객체를 반환한다
+		 */
 		LPDIRECT3D9 GetD3D() const { return mD3D; }
+
+		/* GetDevice
+		 * Return Type: LPDIRECT3DDEVICE9
+		 * D3D Device 객체를 반환
+		 */
 		LPDIRECT3DDEVICE9 GetDevice() const { return mD3DDevice; }
+
+		/* GetSpriect
+		 * Return Type: LPD3DXSPRITE
+		 * D3D Sprite 객체를 반환한다
+		 */
 		LPD3DXSPRITE GetSprite() const { return mSprite; }
 
 	private:
