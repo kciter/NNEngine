@@ -13,12 +13,12 @@
 
 #if defined(_WIN32) || defined(_WIN64)
 
-#include "NNRenderer.h"
+#include "NNBaseRenderer.h"
 #include <d3dx9.h>
 
 namespace NNEngine
 {
-	class NND3DRenderer : public NNRenderer
+	class NND3DRenderer : public NNBaseRenderer
 	{
 	public:
 		/* 持失切人 社瑚切 */

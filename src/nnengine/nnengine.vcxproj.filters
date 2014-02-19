@@ -61,9 +61,6 @@
     <ClInclude Include="NNWindowsApplication.h">
       <Filter>Application\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="NNRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="NNLibSet.h">
       <Filter>Macro</Filter>
     </ClInclude>
@@ -72,6 +69,9 @@
     </ClInclude>
     <ClInclude Include="NNOpenGLRenderer.h">
       <Filter>Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="NNBaseRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,11 +20,11 @@ namespace NNEngine
 		OPENGL,
 	};
 
-	class NNRenderer
+	class NNBaseRenderer
 	{
 	public:
-		NNRenderer() : mIsFullscreen(false) {}
-		virtual ~NNRenderer(){}
+		NNBaseRenderer() : mIsFullscreen(false) {}
+		virtual ~NNBaseRenderer(){}
 
 	public:
 		/* Init

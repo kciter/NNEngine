@@ -14,7 +14,7 @@
 namespace NNEngine
 {
 	enum RendererStatus;
-	class NNRenderer;
+	class NNBaseRenderer;
 
 	class NNBaseApplication
 	{
@@ -106,13 +106,13 @@ namespace NNEngine
 		 * Return Type: NNRenderer
 		 * 현재 사용하는 렌더러를 반환한다.
 		 */
-		inline NNRenderer* GetRenderer() const { return mRenderer; }
+		inline NNBaseRenderer* GetRenderer() const { return mRenderer; }
 
 	private:
 		/* _CreateRenderer
-		* rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
-		* 렌더러를 생성하는 함수.
-		*/
+		 * rendererStatus: 렌더러 종류 (D3D, OpenGL, ...)
+		 * 렌더러를 생성하는 함수.
+		 */
 		virtual bool _CreateRenderer( bool isFullscreen, RendererStatus rendererStatus ) = 0;
 
 	protected:
@@ -127,7 +127,7 @@ namespace NNEngine
 		bool mIsFullscreen;
 
 		RendererStatus mRendererStatus;
-		NNRenderer* mRenderer;
+		NNBaseRenderer* mRenderer;
 	};
 }
 #endif

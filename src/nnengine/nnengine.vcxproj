@@ -86,7 +86,7 @@
     <ClInclude Include="NNEngine.h" />
     <ClInclude Include="NNLibSet.h" />
     <ClInclude Include="NNOpenGLRenderer.h" />
-    <ClInclude Include="NNRenderer.h" />
+    <ClInclude Include="NNBaseRenderer.h" />
     <ClInclude Include="NNWindowsApplication.h" />
   </ItemGroup>
   <ItemGroup>
