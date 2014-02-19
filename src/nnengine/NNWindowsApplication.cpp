@@ -3,14 +3,16 @@
  * NNWindowsApplication.cpp
  * 작성자: 이선협
  * 작성일: 2014. 02. 18
- * 마지막으로 수정한 사람:
- * 수정일:
+ * 마지막으로 수정한 사람: 이선협
+ * 수정일: 2014. 02. 19
+ * 수정사유: 렌더러 네이밍 변경
  * 윈도우에서 Application Frame을 생성하기 위한 클래스
  */
 
 #include "NNWindowsApplication.h"
 
 #include "NND3DRenderer.h"
+#include "NNOpenGLRenderer.h"
 
 namespace NNEngine
 {
@@ -49,15 +51,12 @@ namespace NNEngine
 		mIsFullscreen = isFullscreen;
 		mRendererStatus = rendererStatus;
 
-		if ( _CreateWindow( title, width, height ) == false )
-		{
+		
+		if ( _CreateWindow( title, width, height, rendererStatus ) == false )
 			return false;
-		}
 
 		if ( _CreateRenderer( isFullscreen, rendererStatus ) == false )
-		{
 			return false;
-		}
 
 		return true;
 	}
@@ -80,9 +79,8 @@ namespace NNEngine
 			if ( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
 			{
 				if ( msg.message == WM_QUIT )
-				{
 					return true;
-				}
+
 				TranslateMessage( &msg );
 				DispatchMessage( &msg );
 			}
@@ -90,9 +88,8 @@ namespace NNEngine
 				mFrameCount++;
 				mNowTime = timeGetTime(); // Linux, Mac에서는 안돌아감
 				if ( mPrevTime == 0.f )
-				{
 					mPrevTime = mNowTime;
-				}
+
 				mDeltaTime = (static_cast<float>(mNowTime - mPrevTime)) / 1000.f;
 				mElapsedTime += mDeltaTime;
 				mFpsTimer += mDeltaTime;
@@ -119,8 +116,13 @@ namespace NNEngine
 		return true;
 	}
 
-	bool NNWindowsApplication::_CreateWindow( wchar_t* title, int width, int height )
+	bool NNWindowsApplication::_CreateWindow( wchar_t* title, int width, int height, RendererStatus rendererStatus )
 	{
+		if ( rendererStatus == RendererStatus::OPENGL )
+		{
+			//return true;
+		}
+
 		WNDCLASSEX wcex;
 		wcex.cbSize = sizeof(WNDCLASSEX);
 		wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -132,7 +134,7 @@ namespace NNEngine
 		wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 		wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
 		wcex.lpszMenuName = NULL;
-		wcex.lpszClassName = L"NNApplication";
+		wcex.lpszClassName = title;
 		wcex.hIconSm = NULL;
 		wcex.hIcon = NULL;
 
@@ -143,7 +145,7 @@ namespace NNEngine
 		RECT wr = {0, 0, width, height};
 		AdjustWindowRect( &wr, style, FALSE );
 
-		mHwnd = CreateWindow( L"NNApplication", title, style, CW_USEDEFAULT, CW_USEDEFAULT,
+		mHwnd = CreateWindow( title, title, style, CW_USEDEFAULT, CW_USEDEFAULT,
 			wr.right-wr.left, wr.bottom-wr.top, NULL, NULL, mhInstance, NULL);
 
 		ShowWindow( mHwnd, SW_SHOWNORMAL );
@@ -158,6 +160,11 @@ namespace NNEngine
 		case D3D:
 			{
 				mRenderer = new NND3DRenderer();
+				break;
+			}
+		case OPENGL:
+			{
+				mRenderer = new NNOpenGLRenderer();
 				break;
 			}
 		default:

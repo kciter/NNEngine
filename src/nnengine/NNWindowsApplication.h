@@ -3,8 +3,9 @@
  * NNWindowsApplication.h
  * 작성자: 이선협
  * 작성일: 2014. 02. 18
- * 마지막으로 수정한 사람:
- * 수정일:
+ * 마지막으로 수정한 사람: 이선협
+ * 수정일: 2014. 02. 19
+ * 수정사유: 렌더러 네이밍 변경
  * 윈도우에서 Application Frame을 생성하기 위한 클래스
  * 엔진에서 기본적으로 제공해주는 Application 클래스
  * 이 클래스를 사용하지 않고 BaseApplication을 상속받아
@@ -79,7 +80,7 @@ namespace NNEngine
 		 * height: 어플리케이션 프레임의 세로길이
 		 * 어플리케이션 프레임을 생성하는 함수.
 		 */
-		bool _CreateWindow( wchar_t* title, int width, int height );
+		bool _CreateWindow( wchar_t* title, int width, int height, RendererStatus rendererStatus );
 
 		/* _CreateRenderer
 		 * Return Type: bool
