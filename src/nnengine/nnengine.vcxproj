@@ -82,13 +82,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="NNBaseApplication.h" />
+    <ClInclude Include="NND3DRenderer.h" />
     <ClInclude Include="NNEngine.h" />
-    <ClInclude Include="NNRenderer.h" />
+    <ClInclude Include="NNLibSet.h" />
+    <ClInclude Include="NNOpenGLRenderer.h" />
+    <ClInclude Include="NNBaseRenderer.h" />
     <ClInclude Include="NNWindowsApplication.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NNBaseApplication.cpp" />
-    <ClCompile Include="NNRenderer.cpp" />
+    <ClCompile Include="NND3DRenderer.cpp" />
+    <ClCompile Include="NNOpenGLRenderer.cpp" />
     <ClCompile Include="NNWindowsApplication.cpp" />
     <ClCompile Include="TempMain.cpp" />
   </ItemGroup>

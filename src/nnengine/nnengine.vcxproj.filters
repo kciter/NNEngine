@@ -37,17 +37,20 @@
     <Filter Include="Renderer\D3D">
       <UniqueIdentifier>{2b11a6da-064e-4716-84b2-f22ec6558ef1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer\OpenGL">
+      <UniqueIdentifier>{52179e82-69c3-4a1b-994c-b051441a51b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NNBaseApplication.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
     <ClCompile Include="TempMain.cpp" />
     <ClCompile Include="NNWindowsApplication.cpp">
       <Filter>Application\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="NNRenderer.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="NND3DRenderer.cpp">
+      <Filter>Renderer\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NNOpenGLRenderer.cpp">
+      <Filter>Renderer\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,7 +61,16 @@
     <ClInclude Include="NNWindowsApplication.h">
       <Filter>Application\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="NNRenderer.h">
+    <ClInclude Include="NNLibSet.h">
+      <Filter>Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NND3DRenderer.h">
+      <Filter>Renderer\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NNOpenGLRenderer.h">
+      <Filter>Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="NNBaseRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
