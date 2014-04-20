@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{6947fb60-3f31-48a7-b5e2-16e6726ecde3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NetworkSystem">
+      <UniqueIdentifier>{4918aa50-4037-47cd-a830-1a02d7ad0bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AudioSystem">
+      <UniqueIdentifier>{6ae6b740-f2d7-4211-b6d0-3efcf6355fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManager">
+      <UniqueIdentifier>{9b41eb2c-5555-435a-9359-1156842d3510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager">
+      <UniqueIdentifier>{c2d22271-ae58-4558-b631-c5ce7ad7dc65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{794a9ed1-1948-4cd0-bf31-58de1030fb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Macro">
+      <UniqueIdentifier>{dedff10e-d9ec-449c-8546-97a0f5bfe885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataType">
+      <UniqueIdentifier>{e919e7c1-dd49-4899-9479-5883f534f5e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Node">
+      <UniqueIdentifier>{15e54f3a-fb9e-4251-a18d-fcb4f74a76ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{0cf0d3c5-80a3-4990-a136-d5057c5cc71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Windows">
+      <UniqueIdentifier>{02e665ba-df9e-43e1-a616-fc6a9a5a5cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\D3D">
+      <UniqueIdentifier>{2b11a6da-064e-4716-84b2-f22ec6558ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\OpenGL">
+      <UniqueIdentifier>{52179e82-69c3-4a1b-994c-b051441a51b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TempMain.cpp" />
+    <ClCompile Include="NNWindowsApplication.cpp">
+      <Filter>Application\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="NND3DRenderer.cpp">
+      <Filter>Renderer\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NNOpenGLRenderer.cpp">
+      <Filter>Renderer\OpenGL</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NNBaseApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="NNEngine.h" />
+    <ClInclude Include="NNWindowsApplication.h">
+      <Filter>Application\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="NNLibSet.h">
+      <Filter>Macro</Filter>
+    </ClInclude>
+    <ClInclude Include="NND3DRenderer.h">
+      <Filter>Renderer\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NNOpenGLRenderer.h">
+      <Filter>Renderer\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="NNBaseRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
